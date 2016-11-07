@@ -19,7 +19,7 @@
         <div class="dados">
             <h1>Login</h1>
         </div>
-        <form>
+        <forma action="LoginAcesso" method="post">
             <div id="formulario">
                 <div id="topo">
                     <h2>Login</h2>

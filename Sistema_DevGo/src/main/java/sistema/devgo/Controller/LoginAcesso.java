@@ -7,6 +7,9 @@ package sistema.devgo.Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,13 +17,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import sistema.devgo.Model.dao.UsuarioDAO;
 import sistema.devgo.java.UsuarioSistema;
 
 /**
  *
  * @author natan
  */
-@WebServlet(name = "LoginAcesso", urlPatterns = {"/login"})
+@WebServlet(name = "LoginAcesso", urlPatterns = {"/Login"})
 public class LoginAcesso extends HttpServlet {
 
     /**
@@ -63,9 +67,9 @@ public class LoginAcesso extends HttpServlet {
             throws ServletException, IOException {
 
             RequestDispatcher dispatcher
-                    = request.getRequestDispatcher("/WEB-INF/Login.jsp");
+                    = request.getRequestDispatcher("/Login.jsp");
             dispatcher.forward(request, response);
-        //Redireciona para uma pagina mas não consegui encontrar ela no projeto / teste-servlet ???
+        
     }
 
     /**
@@ -82,22 +86,31 @@ public class LoginAcesso extends HttpServlet {
 
         String login = request.getParameter("Login");
         String senha = request.getParameter("Senha");
+        
+       int senha1 = Integer.parseInt(request.getParameter("Senha"));
 
         // Validar nome de usuario e senha
-        UsuarioSistema usuario = validar(login, senha);
-        if (usuario != null) {
-            HttpSession sessao = request.getSession(true);
-            sessao.setAttribute("usuario", usuario);
-            response.sendRedirect(request.getContextPath() + "/Acesso.jsp"); //???
-        } else {
-            response.sendRedirect(request.getContextPath() + "/ErroLogin.jsp");
+        UsuarioSistema usuario = new UsuarioSistema();
+        usuario.setNome(login);
+        usuario.setSenha(senha1);
+        
+        UsuarioDAO usuDAO = new UsuarioDAO();
+        
+            UsuarioSistema usuAutenticado;
+            usuAutenticado = usuDAO.autenticacao(usuario);
+            System.out.println("Aceito");
+
+                   if (usuAutenticado!=null){
+            request.getRequestDispatcher("Acesso.jsp").forward(request, response);
         }
-
+        else{
+            response.sendRedirect("/WEB-INF/erroLogin.jsp");
+        }
     }
 
-    private UsuarioSistema validar(String login, String senha) {
-        return null;
-    }
+   
+       
+   
 
     /**
      * Returns a short description of the servlet.

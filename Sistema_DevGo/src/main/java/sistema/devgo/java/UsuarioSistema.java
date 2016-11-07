@@ -23,6 +23,16 @@ public class UsuarioSistema {
 
     private char[] hashSenha;
 
+ private int senha;
+
+    public int getSenha() {
+        return senha;
+    }
+
+    public void setSenha(int senha) {
+        this.senha = senha;
+    }
+
     private long  departamentos; //ROLES
 
     public UsuarioSistema() {
@@ -50,7 +60,9 @@ public class UsuarioSistema {
     public char[] getHashSenha() {
         return hashSenha;
     }
-
+   public void setHashSenha(char[] hashSenha) {
+        this.hashSenha = hashSenha;
+    }
     public long getDepartamentos() {
         return departamentos;
     }
