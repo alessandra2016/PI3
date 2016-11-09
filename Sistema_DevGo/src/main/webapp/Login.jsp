@@ -19,18 +19,18 @@
         <div class="dados">
             <h1>Login</h1>
         </div>
-        <forma action="LoginAcesso" method="post">
+        <form>
             <div id="formulario">
                 <div id="topo">
                     <h2>Login</h2>
                 </div>
-                <div id="form">
+                <c:url value="autenticador" var="autenticador"/>
+                <form action="${autenticador}" method="post" enctype="application/x-www-form-urlencoded">
                     <p><label title="Nome do usuario." for="Login"><i class="material-icons">person</i>Usuario:</label>
-                        <input required="required" type="text" name="Login" maxlength="35" id="Login" size="44" /></p>
+                        <input required="required" type="text" name="login" maxlength="35" id="Login" size="44" /></p>
                     <p><label title="Senha de acesso." for="Senha"><i class="material-icons">lock_outline</i>Senha:</label>
-                        <input required="required" type="password" name="Senha" maxlength="35" id="Senha" size="44" /></p>
+                        <input value="<c:out value="${asd}">"  required="required" type="password" name="senha" maxlength="35" id="Senha" size="44" /></p>
                     <p><input id="Entrar" title="Entrar" value="Entrar" type="submit"></p>
-                </div>
             </div>
         </form>
         <footer>2016</footer>
